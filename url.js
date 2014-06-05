@@ -1,10 +1,7 @@
 window.urls = (function(){
 	var urls = {
-		//pendiente
-		get: function (){
-		    var sURLVariables = window.location.split('/');
-		    var rtrn = {}
-		    
+		getPathName: function(){
+			return window.location.pathname.split("/")
 		}
 
 		// Returns the extension of the file of the current URL
@@ -27,21 +24,33 @@ window.urls = (function(){
 		    	return sURLVariables[sURLVariables.length-2].split(".")[1];
 		    }
 		}
-
+		// Returns the port of the current URL
 		getPort: function(){
 			return window.location.port.toString().trim()==""? "80": window.location.port.toString();
 		}
 
+		// Returns the protocol of the current URL
 		getProtocol: function(){
 			return window.location.protocol
 		}
 
+		// Returns the protocol of the URL provided
 		getProtocol: function(value){
 			return value.split(":")[0]+":"
 		}
 
+		// Returns true if the current URL has a file extension
 		hasExtension: function(){
 		    return window.location.pathname.indexOf(".")>=0;
+		}
+
+		// Returns true if the current URL has a file extension
+		getExtension: function(){
+			if(hasExtension())
+			{
+				var loc = window.location.pathname;
+		    	return loc.substring(loc.indexOf("."),loc.length);
+		    }
 		}
 
 		// Returns true if the current URL is valid
@@ -112,5 +121,17 @@ window.urls = (function(){
 			}
 		}
 
+		// Returns a json of the URL
+		get: function (){
+				    return {
+				    	"protocol":getProtocol(),
+					    "subdomain":getSubDomain),
+					    "domainname":getDomainName(),
+					    "domain":getDomain(),
+					    "protocl":getProtocol(),
+					    "pathname":getPathName(),
+					    "extension":getExtension()
+					}
+				}
 	}
 })();
